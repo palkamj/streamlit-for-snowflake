@@ -3,14 +3,11 @@ import os
 import streamlit as st
 import pandas as pd
 from get_data import get_dataframe
-from dotenv import load_dotenv
 from graph_functions import makeTreemap, makeSunkey, makeIcicle, makeSunburst
 
-load_dotenv()
+@st.cache_data(ttl=3600)
 
-#print(os.environ.get("AZURE_STORAGE_ACCOUNT"))
-
-def main():
+def load_data():
     STORAGE_ACCOUNT_NAME = os.environ.get("AZURE_STORAGE_ACCOUNT")
     CREDENTIAL = os.environ.get("AZURE_STORAGE_KEY")
     FILE_SYSTEM_NAME = "appdata"
@@ -24,8 +21,12 @@ def main():
         directory_path=DIRECTORY_PATH,
         file_name=FILE_NAME
     )
+    return df
+
+def main():
+
+    df = load_data()
     
-    #This is a change
     # Now you can work with df here
     
     df["EMPLOYEE_ID"] = df["EMPLOYEE_ID"].astype(str)
@@ -40,7 +41,7 @@ def main():
     df["MANAGER_ID"] = df["MANAGER_ID"].astype(str)
     df["MANAGER_NAME"] = df["MANAGER_ID"].map(emp_id_to_name)
 
-    #print(df.head())
+
 
 
     st.title("Hierarchical Data Viewer")
