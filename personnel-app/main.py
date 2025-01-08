@@ -5,7 +5,7 @@ import pandas as pd
 from get_data import get_dataframe
 from graph_functions import makeTreemap, makeSunkey, makeIcicle, makeSunburst
 
-@st.cache_data(ttl=3600)
+#@st.cache_data(ttl=3600)
 
 def load_data():
     STORAGE_ACCOUNT_NAME = os.environ.get("AZURE_STORAGE_ACCOUNT")
