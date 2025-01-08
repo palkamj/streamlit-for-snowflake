@@ -1,0 +1,5 @@
+pandas
+streamlit
+plotly
+azure-storage-file-datalake
+python-dotenv
