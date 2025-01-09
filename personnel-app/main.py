@@ -67,6 +67,7 @@ def main():
     '''
 
     st.plotly_chart(fig, use_container_width=True)
+    st.graphviz_chart(d)
 
     '''
     tab1, tab2 = st.tabs(["Treemap", "Graphviz"])
