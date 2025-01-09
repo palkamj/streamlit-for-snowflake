@@ -42,15 +42,15 @@ def main():
     df["MANAGER_NAME"] = df["MANAGER_ID"].map(emp_id_to_name)
 
 
-
+    st.set_page_config(layout="wide")    
 
     st.title("Hierarchical Data Viewer")
 
     labels = df[df.columns[11]]
     parents = df[df.columns[12]]
-
     fig = makeTreemap(labels, parents)
-    st.plotly_chart(fig, use_container_width=True)
+    fig.update_layout(height=1000)
+
 
     edges = ""
     for _, row in df.iterrows():
@@ -66,7 +66,11 @@ def main():
     }}
     '''
 
-    st.graphviz_chart(d)
+    tab1, tab2 = st.tabs(["Treemap", "Graphviz"])
+    with tab1:
+        st.plotly_chart(fig, use_container_width=True)
+    with tab2:
+        st.graphviz_chart(d)
 
 
 if __name__ == "__main__":
